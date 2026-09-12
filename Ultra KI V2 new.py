@@ -7,10 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 load_dotenv()
 app = Flask(__name__)
-secret_key = os.getenv("SECRET_KEY")
-if not secret_key:
-    raise RuntimeError("SECRET_KEY must be configured")
-app.secret_key = secret_key
+app.secret_key = os.getenv("SECRET_KEY", "dev-only-change-me")
 
 api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key) if api_key else None
@@ -35,6 +32,11 @@ init_db()
 @app.route("/")
 def index():
     return redirect(url_for("dashboard")) if "user_id" in session else redirect(url_for("login"))
+
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok", "project": "ultra-ki-v2", "openai_configured": client is not None})
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -109,4 +111,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=False)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "10000")), debug=False)
