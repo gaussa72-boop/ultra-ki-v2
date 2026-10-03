@@ -131,7 +131,7 @@ def chat():
     ip = request.headers.get("X-Forwarded-For", request.remote_addr or "unknown").split(",")[0].strip()
     if not allow(ip): return jsonify({"error":"Zu viele Anfragen. Bitte kurz warten."}), 429
     data = request.get_json(silent=True) or {}
-    message = str(data.get("message") or "").strip()
+    message = str(data.get("message") or "").strip()\n    selected_model=str(data.get("model") or MODEL).strip()
     if not message: return jsonify({"error":"message is required"}), 400
     if len(message) > MAX_INPUT: return jsonify({"error":f"message is too long (max {MAX_INPUT} characters)"}), 413
     reply = ask(message, data.get("history"))
