@@ -124,7 +124,7 @@ def engine_js(): return send_from_directory(".", "game_engine.js")
 @app.get("/health")
 @app.get("/api/health")
 def health():
-    return jsonify({"status":"ok","project":"ULTRA KI V2","model":MODEL,"ai_enabled":AI_ENABLED,"web_search":WEB,"openai_configured":bool(client)})
+    return jsonify({"status":"ok","project":"ULTRA KI V2","model":MODEL,"ai_enabled":AI_ENABLED,"web_search":WEB,"openai_configured":bool(client or router_client)})
 
 @app.post("/api/chat")
 @app.post("/chat")
@@ -136,7 +136,7 @@ def chat():
     selected_model = str(data.get("model") or MODEL).strip()
     if not message: return jsonify({"error":"message is required"}), 400
     if len(message) > MAX_INPUT: return jsonify({"error":f"message is too long (max {MAX_INPUT} characters)"}), 413
-    reply = ask(message, data.get("history"))
+    reply = ask(message, data.get("history"), selected_model)
     return jsonify({"ok":True,"reply":reply,"response":reply,"model":MODEL,"web_search":WEB})
 
 if __name__ == "__main__":
