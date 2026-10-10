@@ -1,15 +1,5 @@
-# Ultra KI V2
+# Ultra KI V2 — Legacy-Quellprojekt
 
-Kompakter Flask-Prototyp für eine KI-Chat-Anwendung mit Benutzerkonto und SQLite-Chatverlauf.
+Die empfohlene, konsolidierte Laufzeit ist [Quantum.KI.Ultra.Pro.V2](https://github.com/gaussa72-boop/Quantum.KI.Ultra.Pro.V2). Das Hauptprojekt enthält das aktuelle kosmische UI, den KI-Chat, die Game-Engine und die integrierten IONOS-7- sowie Account-APIs.
 
-## Status
-Der ursprüngliche Quelltext verwendet Flask, SQLite, OpenAI, dotenv und Passwort-Hashing. Die alte Datei bleibt als historische Quelle erhalten. Die Web-Templates waren im Repository jedoch nicht vorhanden; deshalb wird die nächste Bereinigung eine vollständige, reproduzierbare App-Struktur ergänzen.
-
-## Start
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-export OPENAI_API_KEY=...
-python app.py
-```
+Dieses Repository bleibt vorläufig als Quellhistorie erhalten. Nicht separat deployen, wenn die konsolidierte Hauptanwendung genutzt werden soll.
