@@ -1,7 +1,7 @@
 import os
 from collections import defaultdict, deque
 from time import monotonic
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, redirect
 from openai import OpenAI
 
 app = Flask(__name__)
@@ -19,6 +19,12 @@ def _sec_before():
 @app.after_request
 def _sec_headers(response):
     response.headers.setdefault("X-Content-Type-Options","nosniff");response.headers.setdefault("X-Frame-Options","DENY");response.headers.setdefault("Referrer-Policy","strict-origin-when-cross-origin");response.headers.setdefault("Permissions-Policy","camera=(), microphone=(), geolocation=()");response.headers.setdefault("Cross-Origin-Opener-Policy","same-origin");response.headers.setdefault("Strict-Transport-Security","max-age=31536000; includeSubDomains");response.headers.pop("Server",None);return response
+@app.before_request
+def redirect_legacy_ui_to_canonical():
+    if request.method == "GET" and not request.path.startswith("/api/") and request.path not in {"/health", "/api/health"}:
+        query = ("?" + request.query_string.decode("utf-8", "ignore")) if request.query_string else ""
+        return redirect("https://quantum-ki-ultra-pro-v2.onrender.com" + request.path + query, code=302)
+
 
 
 # --- Security hardening ---
