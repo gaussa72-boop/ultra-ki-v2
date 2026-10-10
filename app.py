@@ -105,7 +105,8 @@ def ask(message, history, selected_model=None):
         if WEB:
             kwargs["tools"] = [{"type":"web_search","search_context_size":"medium"}]
             kwargs["tool_choice"] = "auto"
-        active = router_client if (router_client and selected_model) else client\n        response = active.responses.create(**kwargs)
+        active = router_client if (router_client and selected_model) else client
+        response = active.responses.create(**kwargs)
         return response.output_text or "Keine Antwort erhalten."
     except Exception:
         app.logger.exception("AI API failure")
