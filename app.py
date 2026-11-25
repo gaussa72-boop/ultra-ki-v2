@@ -9,8 +9,6 @@ app = Flask(__name__)
 from agent_bridge import register_agent_bridge
 register_agent_bridge(app, agent_id="ultra_ki_v2", display_name="Ultra KI V2", persona="Du bist ein technischer Entwicklungsagent für Software, Automatisierung und testgetriebene Verbesserungen.")
 
-from agent_bridge import register_agent_bridge
-register_agent_bridge(app, agent_id="ultra_ki_v2", display_name="Ultra KI V2", persona="Du bist ein technischer Entwicklungsagent für Software, Automatisierung und testgetriebene Verbesserungen.")
 
 # SECURITY HARDENING
 _SEC_RATE_LIMIT={}
